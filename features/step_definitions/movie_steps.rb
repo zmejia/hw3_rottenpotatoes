@@ -15,7 +15,8 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  flunk "Unimplemented"
+  titles = page.body 
+  assert titles.index(e1) < titles.index(e2)
 end
 
 When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
@@ -44,6 +45,6 @@ end
 
 Then /^I should see all of the movies$/ do 
     rows = page.all("table#movies tbody tr td[1]").map {|t| t.text}
-     assert rows.size == Movie.all.count
-  
+     assert rows.size == Movie.all.count 
 end
+
